@@ -1,5 +1,5 @@
-import React,{useEffect } from "react";
-import {Link, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -10,43 +10,52 @@ const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
   color: red;
+  text-decoration: underline;
 `;
 const TableItem = styled.table`
-  margin:0;
+  border: 1px solid black;
+  margin: 0;
 `;
-const SubContainer = styled.div`
-  display:flex;
-  justify-content:center;
+const Row = styled.tr`
+  border: 1px solid black;
+`;
+const RowItem = styled.td`
+  border: 1px solid black;
 `;
 
-export default function Table({ list,onUpdateChosenIndex }) {
+const SubContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export default function Table({ list, onUpdateChosenIndex }) {
   let history = useHistory();
 
   useEffect(() => {
     history.push("/teams");
   }, []);
 
-  function updateChosenIndex(groupIndex){
-    onUpdateChosenIndex(groupIndex)
-    history.push(`/teams/${groupIndex}`)
+  function updateChosenIndex(groupIndex) {
+    onUpdateChosenIndex(groupIndex);
+    history.push(`/teams/${groupIndex}`);
   }
   return (
     <Container>
-        <Title>Content</Title>
+      <Title>Content</Title>
       <SubContainer>
         <TableItem>
-          <tr>
+          <Row>
             <th>Name</th>
             <th>Founded</th>
             <th>Address</th>
-          </tr>
+          </Row>
           {list.map((item) => {
             return (
-              <tr onClick={()=>updateChosenIndex(item.id)}>
-                <td>{item.name}</td>
-                <td>{item.founded}</td>
-                <td>{item.address}</td>
-              </tr>
+              <Row onClick={() => updateChosenIndex(item.id)}>
+                <RowItem>{item.name}</RowItem>
+                <RowItem>{item.founded}</RowItem>
+                <RowItem>{item.address}</RowItem>
+              </Row>
             );
           })}
         </TableItem>
@@ -54,15 +63,3 @@ export default function Table({ list,onUpdateChosenIndex }) {
     </Container>
   );
 }
-// function About() {
-//   let history = useHistory();
-//   useEffect(() => {
-//     history.push("/teams")
-//   }, []);
-//   return <h2>About</h2>;
-// }
-
-// function Users() {
-//   const { id } = useParams() || 0;
-//   return <h2>Users {id}</h2>;
-// }

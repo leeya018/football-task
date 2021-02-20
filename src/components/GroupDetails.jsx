@@ -15,6 +15,7 @@ const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
   color: red;
+  text-decoration: underline;
 `;
 const Image = styled.div`
   background: ${(props) => `url(${props.icon})`};
@@ -39,6 +40,15 @@ const Link = styled.a`
   display: flex;
   justify-content: center;
 `;
+
+const Item = styled.li`
+  list-style:none;
+  text-align:left;
+`
+
+const TextItem = styled.span`
+  font-size:1.2em;
+`
 export default function GroupDetails() {
   let { id } = useParams();
 
@@ -71,17 +81,17 @@ export default function GroupDetails() {
       <ImageContainer>
         <Image icon={team.crestUrl}> </Image>
       </ImageContainer>
-      <Text>{team.lastUpdated || 1999}</Text>
+      <Text>start date: {team.lastUpdated ? team.lastUpdated.split("T")[0]: 1999 }</Text>
       <Link href={team.website}>go to site</Link>
       <Text>{team.address}</Text>
       <Title>Players</Title>
       <ul>
         {team.squadArr && team.squadArr.map((player) => {
           return (
-            <li>
-              <Text>name: {player.name}</Text>
-              <Text>shirt number: {player.shirtNumber || randomNum()}</Text>
-            </li>
+            <Item>
+              <Text>name: <TextItem>{player.name}</TextItem></Text>
+              <Text>shirt number: <TextItem>{player.shirtNumber || randomNum()}</TextItem></Text>
+            </Item>
           );
         })}
       </ul>
