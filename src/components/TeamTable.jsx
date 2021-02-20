@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -9,17 +9,25 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
-  color: red;
+  color: blue;
   text-decoration: underline;
 `;
-const TableItem = styled.table`
+const Table = styled.table`
   border: 1px solid black;
   margin: 0;
 `;
 const Row = styled.tr`
   border: 1px solid black;
+
+  &:hover {
+    background:#CAC9C9 ;
+  }
 `;
-const RowItem = styled.td`
+
+const TD = styled.td`
+  border: 1px solid black;
+`;
+const TH = styled.th`
   border: 1px solid black;
 `;
 
@@ -28,7 +36,7 @@ const SubContainer = styled.div`
   justify-content: center;
 `;
 
-export default function Table({ list, onUpdateChosenIndex }) {
+export default function TeamTable({ list }) {
   let history = useHistory();
 
   useEffect(() => {
@@ -36,29 +44,28 @@ export default function Table({ list, onUpdateChosenIndex }) {
   }, []);
 
   function updateChosenIndex(groupIndex) {
-    onUpdateChosenIndex(groupIndex);
     history.push(`/teams/${groupIndex}`);
   }
   return (
     <Container>
-      <Title>Content</Title>
+      <Title>Football Teams: </Title>
       <SubContainer>
-        <TableItem>
+        <Table>
           <Row>
-            <th>Name</th>
-            <th>Founded</th>
-            <th>Address</th>
+            <TH>Name</TH>
+            <TH>Founded</TH>
+            <TH>Address</TH>
           </Row>
           {list.map((item) => {
             return (
               <Row onClick={() => updateChosenIndex(item.id)}>
-                <RowItem>{item.name}</RowItem>
-                <RowItem>{item.founded}</RowItem>
-                <RowItem>{item.address}</RowItem>
+                <TD>{item.name}</TD>
+                <TD>{item.founded}</TD>
+                <TD>{item.address}</TD>
               </Row>
             );
           })}
-        </TableItem>
+        </Table>
       </SubContainer>
     </Container>
   );
