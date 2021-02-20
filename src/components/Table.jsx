@@ -40,9 +40,9 @@ export default function Table({ list,onUpdateChosenIndex }) {
             <th>Founded</th>
             <th>Address</th>
           </tr>
-          {list.map((item,index) => {
+          {list.map((item) => {
             return (
-              <tr onClick={()=>updateChosenIndex(index)}>
+              <tr onClick={()=>updateChosenIndex(item.id)}>
                 <td>{item.name}</td>
                 <td>{item.founded}</td>
                 <td>{item.address}</td>
