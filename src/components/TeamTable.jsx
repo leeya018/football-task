@@ -23,14 +23,12 @@ const Row = styled.tr`
     background:#CAC9C9 ;
   }
 `;
-
 const TD = styled.td`
   border: 1px solid black;
 `;
 const TH = styled.th`
   border: 1px solid black;
 `;
-
 const SubContainer = styled.div`
   display: flex;
   justify-content: center;

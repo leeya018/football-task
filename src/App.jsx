@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,19 +7,21 @@ import {
 } from "react-router-dom";
 import GroupDetails from "./components/TeamDetails";
 import Table from "./components/TeamTable";
-import { BASE_URL, PAYLOAD } from "./constants";
+import apis from "./api";
 
 function App() {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    async function getData() {
-      let url = BASE_URL + "/teams";
-      let res = await axios(url, PAYLOAD);
-      let teamArr = res.data.teams;
-      setList(teamArr.slice(0, 10));
-    }
-    getData();
+    apis
+      .getTeams()
+      .then((res) => {
+        let teamArr = res.data.teams;
+        setList(teamArr.slice(0, 10));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (

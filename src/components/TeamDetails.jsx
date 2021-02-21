@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { BASE_URL, PAYLOAD } from "../constants";
+import apis from "../api";
 
 function randomNum() {
   return Math.floor(Math.random() * 100);
@@ -77,20 +76,21 @@ const TH = styled.th`
 `;
 export default function TeamDetails() {
   let { id } = useParams();
-
   const [team, setTeam] = useState({});
 
   useEffect(() => {
-    let url = `${BASE_URL}/teams/${id}`;
-    async function getData() {
-      let res = await axios(url, PAYLOAD);
-      let team = res.data;
-      let { name, address, website, crestUrl, founded } = team;
-      console.log(team);
-      let squadArr = team.squad.slice(0, 10);
-      setTeam({ name, address, crestUrl, website, founded, squadArr });
-    }
-    getData();
+    apis
+      .getTeamById(id)
+      .then((res) => {
+        let team = res.data;
+        let { name, address, website, crestUrl, founded } = team;
+        console.log(team);
+        let squadArr = team.squad.slice(0, 10);
+        setTeam({ name, address, crestUrl, website, founded, squadArr });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
